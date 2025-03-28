@@ -25,26 +25,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 if (!isset($_SESSION['user_id'])) {
     echo $twig->render('login.twig');
 } else {
-    $pdo = $database->getPdo();
-    $stmt = $pdo->prepare(
-        "
-        SELECT 
-            i.id AS item_id,
-            i.name AS item_name,
-            i.price AS item_price,
-            i.side as side,
-            i.description as description,
-            s.id AS section_id,
-            s.name AS section_name
-        FROM 
-            items i
-        JOIN 
-            sections s ON i.section_id = s.id;
-        ");
-        $stmt->execute();
-        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        echo $twig->render('index.twig', [
-            'mod' => true,
-            'results' => $results
-        ]);
+    echo $twig->render('index.twig', [
+        'mod' => true,
+        'results' => $contents->getMenuItems()
+    ]);
 }
