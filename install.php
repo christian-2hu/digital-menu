@@ -9,7 +9,7 @@ $dotenv->load();
 
 $database = new Database($_ENV['DB_DATABASE'], $_ENV['DB_USER'], $_ENV['DB_PASS']);
 $install = new Install($database->getPdo());
-$template = new Twig($_ENV['TWIG_PATH'], $_ENV['TWIG_CACHE']);
+$template = new Twig($_ENV['TWIG_PATH'], false);
 $twig = $template->getTwig();
 
 
