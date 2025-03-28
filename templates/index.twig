@@ -1,1 +1,67 @@
-{{ test }}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cardápio Manapan</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/style/style.css">
+
+</head>
+<body>
+    <div class="container">
+        <div class="container menu">
+        <img src="/static/manapan-logo.png" class="img-fluid" alt="Responsive image">
+            <section class="mt-4 border rounded">
+                <div class="d-flex justify-content-center align-items-center">
+                    <span class="section-title mt-n3">Café da Manhã</span>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <ul class ="mt-4 px-4">
+                            {% for item in results %}
+                                {% if item.side == "esquerdo" %}
+                                    <li>
+                                        <div class="item-preco">
+                                            <div class="item">{{ item.item_name }}</div>
+                                            <div class="preço">R$ {{ item.item_price }}</div>
+                                        </div>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="col-md-7">
+                        <ul class ="mt-4 px-4">
+                            {% for item in results %}
+                                {% if item.side == "direito" %}
+                                    <li>
+                                    {% if item.description %}
+                                        <div class="item-preco">
+                                            <div class="item">
+                                                <div class="item-name">{{ item.item_name }}</div> 
+                                                <div class="unimportant">{{ item.description }}</div>
+                                            </div>
+                                            <div class="preço">R$ {{ item.item_price }}</div>
+                                        </div>
+                                    {% else %}
+                                        <div class="item-preco">
+                                            <div class="item">{{ item.item_name }}</div>
+                                            <div class="preço">R$ {{ item.item_price }}</div>
+                                        </div>
+                                    {% endif %}
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
