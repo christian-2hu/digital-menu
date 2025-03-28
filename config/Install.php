@@ -18,6 +18,13 @@ Class Install {
     public function installDatabase(): void {
         $sql = @file_get_contents("install.sql") or die("Couldn't load install.sql.");
         $this->pdo->exec($sql);
+        $this->addDefaultUser();
+    }
+
+    private function addDefaultUser(): void {
+        $hashedPassword = password_hash('admin', PASSWORD_DEFAULT);
+        $stmt = $this->pdo->prepare("INSERT INTO users (username, password) VALUES (:username, :password)");
+        $stmt->execute(['username' => 'admin', 'password' => $hashedPassword]);
     }
 
 }
