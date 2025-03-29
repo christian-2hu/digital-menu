@@ -8,7 +8,7 @@ Class Twig {
             'cache' => $templatesCache,
         ]);
     }
-    public function getTwig(): Environment {
+    public function getTwigEnvironment(): Environment {
         return $this->twig;
     }
 }

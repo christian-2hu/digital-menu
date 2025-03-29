@@ -4,15 +4,17 @@ require_once "config/Twig.php";
 require_once "config/Install.php";
 require_once "config/Database.php";
 require_once "config/Contents.php";
+require_once "config/Init.php";
+
 session_start();
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
-$database = new Database($_ENV['DB_DATABASE'], $_ENV['DB_USER'], $_ENV['DB_PASS']);
-$template = new Twig($_ENV['TWIG_PATH'], false);
-$install = new Install($database->getPdo());
-$twig = $template->getTwig();
-$contents = new Contents($database->getPdo());
+$init = new Init();
+
+$install = new Install($init->getDatabase()->getpdo());
+$contents = new Contents($init->getDatabase()->getpdo());
+$twig = $init->getTwigEnvironment();
 
 $query = isset($_SERVER['QUERY_STRING']) ? rawurldecode($_SERVER['QUERY_STRING']) : '';
 
